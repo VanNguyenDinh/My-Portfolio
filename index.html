@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --bg-2: #edf3fb;
+      --card: rgba(255,255,255,0.9);
+      --text: #152033;
+      --muted: #64748b;
+      --primary: #1f5fbf;
+      --primary-2: #0f3f8a;
+      --primary-soft: #eaf2ff;
+      --border: rgba(184, 204, 232, 0.75);
+      --shadow: 0 18px 50px rgba(22, 57, 109, 0.10);
+      --shadow-soft: 0 12px 30px rgba(22, 57, 109, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #ffffff 0%, #f5f8fd 32%, #edf4fc 100%);
+    }
+
+    .container {
+      width: min(1220px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(16px);
+      background: rgba(244, 247, 251, 0.82);
+      border-bottom: 1px solid rgba(197, 212, 233, 0.8);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #1f5fbf, #0b3475);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(18, 75, 156, 0.25);
+      color: white;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: 0.04em;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-text h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .brand-text p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .top-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--primary-2);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 34px 0 18px;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f3f8a 0%, #1f5fbf 54%, #4a8df0 100%);
+      color: white;
+      border-radius: 34px;
+      padding: 34px;
+      box-shadow: 0 24px 65px rgba(16, 63, 138, 0.22);
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+
+    .hero-card::before {
+      width: 260px;
+      height: 260px;
+      right: -80px;
+      top: -70px;
+    }
+
+    .hero-card::after {
+      width: 220px;
+      height: 220px;
+      left: -70px;
+      bottom: -90px;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-copy-full {
+      max-width: 980px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      margin-bottom: 16px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .hero-copy h2 {
+      margin: 0 0 14px;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-copy p {
+      margin: 0;
+      color: rgba(255,255,255,0.88);
+      font-size: 16px;
+      line-height: 1.75;
+      max-width: 700px;
+    }
+
+    .standalone-tags {
+      margin-top: 18px;
+      padding: 0 6px;
+    }
+
+    .filter-area {
+      margin-top: 22px;
+      background: rgba(255,255,255,0.94);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 26px;
+      padding: 20px;
+    }
+
+    .filter-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .filter-top h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .filter-top p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .tag-btn {
+      border: 1px solid #d8e4f7;
+      background: white;
+      color: var(--primary-2);
+      padding: 12px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 14px rgba(16, 63, 138, 0.04);
+    }
+
+    .tag-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(16, 63, 138, 0.10);
+    }
+
+    .tag-btn.active {
+      background: linear-gradient(135deg, #1f5fbf, #0f3f8a);
+      color: white;
+      border-color: transparent;
+    }
+
+    main {
+      padding: 22px 0 42px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .section-title h3 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .sidebar,
+    .viewer {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .sidebar {
+      padding: 16px;
+      position: sticky;
+      top: 92px;
+      max-height: calc(100vh - 112px);
+      overflow: auto;
+    }
+
+    .sidebar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e6edf8;
+    }
+
+    .sidebar-head strong {
+      font-size: 15px;
+    }
+
+    .sidebar-head span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .project-item {
+      padding: 16px;
+      border: 1px solid #e1eaf7;
+      border-radius: 18px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    }
+
+    .project-item:hover {
+      transform: translateY(-2px);
+      border-color: #c9dbf4;
+      box-shadow: 0 14px 24px rgba(31, 95, 191, 0.08);
+    }
+
+    .project-item.active {
+      background: linear-gradient(180deg, #eef5ff 0%, #f7fbff 100%);
+      border-color: #9fbeeb;
+      box-shadow: 0 12px 24px rgba(31, 95, 191, 0.10);
+    }
+
+    .project-cover {
+      height: 92px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #dce9fb 0%, #f1f6ff 50%, #d8e7ff 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      color: var(--primary-2);
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .project-item h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .project-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .mini-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #edf4ff;
+      color: var(--primary-2);
+    }
+
+    .viewer {
+      padding: 18px;
+    }
+
+    .viewer-shell {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid #dfebfa;
+      background: linear-gradient(180deg, #ffffff 0%, #fafdff 100%);
+    }
+
+    .viewer-header {
+      padding: 22px 22px 16px;
+      border-bottom: 1px solid #e5eefb;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .viewer-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .viewer-header h4 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    .viewer-header p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px 22px;
+      border-bottom: 1px solid #e5eefb;
+      background: #fbfdff;
+    }
+
+    .toolbar-left {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      background: white;
+      border: 1px solid #dbe7f8;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--primary-2);
+      font-weight: 600;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 11px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, #1f5fbf, #0f3f8a);
+      box-shadow: 0 10px 20px rgba(31, 95, 191, 0.18);
+    }
+
+    .btn-secondary {
+      color: var(--primary-2);
+      background: white;
+      border: 1px solid #d8e4f7;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .pdf-frame-wrap {
+      padding: 18px;
+      background: linear-gradient(180deg, #f7fbff 0%, #f2f7fd 100%);
+    }
+
+    iframe {
+      width: 100%;
+      height: 78vh;
+      border: 0;
+      display: block;
+      border-radius: 18px;
+      background: white;
+      box-shadow: inset 0 0 0 1px #e2ecf9;
+    }
+
+    .empty-state {
+      padding: 36px 20px;
+      text-align: center;
+      color: var(--muted);
+      background: white;
+      border: 1px dashed #cfdef2;
+      border-radius: 18px;
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 8px 0 36px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero-card {
+        padding: 24px;
+        border-radius: 28px;
+      }
+
+      .viewer-header h4 {
+        font-size: 22px;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      iframe {
+        height: 62vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo">
+          <img src="logo.png" alt="Logo" onerror="this.style.display='none'; this.parentElement.textContent='LP';">
+        </div>
+        <div class="brand-text">
+          <h1>My Portfolio</h1>
+          <p>Creative works, proposals, case studies & presentations</p>
+        </div>
+      </div>
+      <div class="top-chip">PDF Portfolio Viewer</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="hero-copy hero-copy-full">
+          <h2 id="heroTitle">Show a compact, beautiful, easy-to-view PDF portfolio right on the web</h2>
+          <p id="heroDescription">Select each category such as My Portfolio, F&amp;B, Real Estate, Beauty, or Event to filter your profile. When selecting a project, the PDF file will be displayed directly in the right pane for viewers to scroll vertically and read seamlessly.</p>
+        </div>
+      </div>
+      <div class="tags-wrap standalone-tags" id="tagButtons"></div>
+    </div>
+  </section>
+
+  <main>
+    <div class="container">
+      <div class="section-title">
+        <h3 id="currentCategory">Tất cả dự án</h3>
+        <span id="projectCount">0 project</span>
+      </div>
+
+      <div class="grid">
+        <aside class="sidebar">
+          <div class="sidebar-head">
+            <strong>Project list</strong>
+            <span>Chọn 1 file để xem</span>
+          </div>
+          <div id="projectList"></div>
+        </aside>
+
+        <section class="viewer">
+          <div id="viewerContent"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © 2026 My Portfolio. Built for simple PDF showcase.
+  </footer>
+
+  <script>
+    const categories = ["All", "My Portfolio", "F&B", "Real Estate", "Beauty", "Event"];
+
+    const projects = [
+      {
+        title: "My Portfolio Overview",
+        description: "Tổng hợp các dự án tiêu biểu, hồ sơ năng lực và định hướng làm việc cá nhân.",
+        category: "My Portfolio",
+        pdf: "pdf/my-portfolio.pdf",
+        year: "2026"
+      },
+      {
+        title: "F&B Campaign Portfolio",
+        description: "Các proposal, idea deck và tài liệu triển khai truyền thông cho ngành F&B.",
+        category: "F&B",
+        pdf: "pdf/fnb-campaign.pdf",
+        year: "2026"
+      },
+      {
+        title: "Real Estate Proposal",
+        description: "Bộ tài liệu branding, communication direction và nội dung cho ngành bất động sản.",
+        category: "Real Estate",
+        pdf: "pdf/real-estate-proposal.pdf",
+        year: "2026"
+      },
+      {
+        title: "Beauty Social Portfolio",
+        description: "Các tài liệu social media, visual direction và content showcase cho ngành làm đẹp.",
+        category: "Beauty",
+        pdf: "pdf/beauty-portfolio.pdf",
+        year: "2026"
+      },
+      {
+        title: "Event Communication Deck",
+        description: "Portfolio về kế hoạch truyền thông, kịch bản và ấn phẩm cho sự kiện.",
+        category: "Event",
+        pdf: "pdf/event-plan.pdf",
+        year: "2026"
+      }
+    ];
+
+    let activeCategory = "All";
+    let filteredProjects = [...projects];
+    let activeProject = filteredProjects[0] || null;
+
+    const tagButtons = document.getElementById("tagButtons");
+    const projectList = document.getElementById("projectList");
+    const viewerContent = document.getElementById("viewerContent");
+    const currentCategory = document.getElementById("currentCategory");
+    const projectCount = document.getElementById("projectCount");
+
+    function renderTags() {
+      tagButtons.innerHTML = "";
+      categories.forEach(category => {
+        const btn = document.createElement("button");
+        btn.className = `tag-btn ${activeCategory === category ? 'active' : ''}`;
+        btn.textContent = category;
+        btn.onclick = () => {
+          activeCategory = category;
+          filterProjects();
+          renderTags();
+        };
+        tagButtons.appendChild(btn);
+      });
+    }
+
+    function filterProjects() {
+      filteredProjects = activeCategory === "All"
+        ? [...projects]
+        : projects.filter(project => project.category === activeCategory);
+
+      activeProject = filteredProjects[0] || null;
+      currentCategory.textContent = activeCategory === "All" ? "All Projects" : activeCategory;
+      projectCount.textContent = `${filteredProjects.length} project` + (filteredProjects.length > 1 ? 's' : '');
+      renderProjectList();
+      renderViewer();
+    }
+
+    function renderProjectList() {
+      projectList.innerHTML = "";
+
+      if (filteredProjects.length === 0) {
+        projectList.innerHTML = `<div class="empty-state">Chưa có project nào trong danh mục này.</div>`;
+        return;
+      }
+
+      filteredProjects.forEach(project => {
+        const item = document.createElement("div");
+        item.className = `project-item ${activeProject && activeProject.title === project.title ? 'active' : ''}`;
+        item.innerHTML = `
+          <div class="project-cover">${project.category}</div>
+          <h4>${project.title}</h4>
+          <p>${project.description}</p>
+          <div class="project-meta">
+            <span class="mini-tag">${project.category}</span>
+            <span class="mini-tag">${project.year}</span>
+          </div>
+        `;
+        item.onclick = () => {
+          activeProject = project;
+          renderProjectList();
+          renderViewer();
+        };
+        projectList.appendChild(item);
+      });
+    }
+
+    function renderViewer() {
+      if (!activeProject) {
+        viewerContent.innerHTML = `<div class="empty-state">Hãy chọn một file để xem nội dung PDF.</div>`;
+        return;
+      }
+
+      viewerContent.innerHTML = `
+        <div class="viewer-shell">
+          <div class="viewer-header">
+            <div class="viewer-header-top">
+              <h4>${activeProject.title}</h4>
+              <span class="mini-tag">${activeProject.category}</span>
+            </div>
+            <p>${activeProject.description}</p>
+          </div>
+
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <div class="toolbar-badge">Danh mục: ${activeProject.category}</div>
+              <div class="toolbar-badge">Năm: ${activeProject.year}</div>
+            </div>
+            <div class="toolbar-actions">
+              <a class="btn btn-secondary" href="${activeProject.pdf}" download>Tải PDF</a>
+              <a class="btn btn-primary" href="${activeProject.pdf}" target="_blank">Mở tab mới</a>
+            </div>
+          </div>
+
+          <div class="pdf-frame-wrap">
+            <iframe src="${activeProject.pdf}#view=FitH"></iframe>
+          </div>
+        </div>
+      `;
+    }
+
+    renderTags();
+    filterProjects();
+  </script>
+</body>
+</html>
